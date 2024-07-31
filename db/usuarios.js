@@ -78,11 +78,25 @@ async function atualizaEmail (novoEmail, senhaAtual, usuario) {
     }
 }
 
+async function atualizaPerfil (perfil, usuario) {
+    const usuarioEncontrado = await encontraUsuario(usuario);
+    usuarioEncontrado.perfil = perfil;
+    salvaUsuario(usuarioEncontrado)
+}
+
+async function atualizaAbout(about, usuario) {
+    const usuarioEncontrado = await encontraUsuario(usuario);
+    usuarioEncontrado.about = about;
+    salvaUsuario(usuarioEncontrado)
+}
+
 export { 
     cadastrarUsuario,
     encontraUsuario,
     encontraTodosUsuarios,
     atualizaSenha,
     atualizaEmail,
-    deletarUsuario
+    deletarUsuario,
+    atualizaPerfil,
+    atualizaAbout
     }

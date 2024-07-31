@@ -1,4 +1,4 @@
-import { atualizaEmail, atualizaSenha, cadastrarUsuario, deletarUsuario, encontraTodosUsuarios, encontraUsuario} from "../db/usuarios.js"
+import { atualizaAbout, atualizaEmail, atualizaPerfil, atualizaSenha, cadastrarUsuario, deletarUsuario, encontraTodosUsuarios, encontraUsuario} from "../db/usuarios.js"
 import { autorizaUsuario } from "../servicos/usuario.js"
 
 async function postUsuario(req, res) {
@@ -51,15 +51,23 @@ async function putUsuario(req, res) {
     const senhaNova = req.body.senhaNova
     const senhaAtual = req.body.senhaAtual
     const email = req.body.email
+    const perfil = req.body.perfil
+    const about = req.body.about
 
     if(senhaNova) {
       await atualizaSenha(senhaNova, senhaAtual, usuario);
       res.status(201).send('Senha atualizada com sucesso.')
-    } if(email) {
+    } else if(email) {
         await atualizaEmail(email, senhaAtual, usuario)
         res.status(201).send('E-mail atualizado com suceso.')
+    } else if (perfil) {
+        await atualizaPerfil(perfil, usuario)
+        res.status(201).send('Perfil foi alterado')
+    } else if(about) {
+        await atualizaAbout(about, usuario)
+        res.status(201).send('Bio atualizada')
     } else {
-        res.status(401).send('Não foi possivel atualizar')
+        res.status(500).send('Não foi possivel atualizar')
     }
 }
 
