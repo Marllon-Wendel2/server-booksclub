@@ -12,7 +12,7 @@ try {
     livrosColecao =  db.collection('livros');
         
     
-    console.log('Banco de tados conectado com sucesso')
+    console.log('Banco de dados conectado com sucesso')
     } catch (error) {
         console.log(error);
     }
